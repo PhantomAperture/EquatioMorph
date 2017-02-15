@@ -10,12 +10,18 @@ import java.util.HashMap;
  */
 public abstract class HierarchicView<T> extends Node<T, HierarchicView> {
 
-    private Dimension minimalSize;
     private Dimension preferredSize;
     private Rectangle boundingBox;
+    private Component container;
+    private boolean selected;
+    private boolean hovered;
+    private String toolTip;
 
     public HierarchicView() {
-        //Null
+    }
+
+    public HierarchicView(Component container) {
+        this.container = container;
     }
 
     public HierarchicView(Node parent) {
@@ -82,20 +88,38 @@ public abstract class HierarchicView<T> extends Node<T, HierarchicView> {
         this.preferredSize = preferredSize;
     }
 
-    public Dimension getMinimalSize() {
-        return minimalSize;
-    }
-
-    public void setMinimalSize(Dimension minimalSize) {
-        this.minimalSize = minimalSize;
-    }
-
     public Rectangle getBoundingBox() {
         return boundingBox;
     }
 
     public void setBoundingBox(Rectangle boundingBox) {
         this.boundingBox = boundingBox;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public boolean isHovered() {
+        return hovered;
+    }
+
+    public void setHovered(boolean hovered) {
+        this.hovered = hovered;
+    }
+
+    public boolean intersects(Point point) {
+        return point.x > getBoundingBox().x && point.x < getBoundingBox().getX() + getBoundingBox().getWidth() &&
+               point.y > getBoundingBox().y && point.y < getBoundingBox().getY() + getBoundingBox().getHeight();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
     }
 
     public static Point getAlignedPosition(Alignment alignment, Rectangle container, Dimension entity) {
@@ -164,5 +188,29 @@ public abstract class HierarchicView<T> extends Node<T, HierarchicView> {
             FONT_METRICS.put(font, fontMetrics);
             return fontMetrics;
         }
+    }
+
+    public Component getContainer() {
+        return container;
+    }
+
+    public void setContainer(Component container) {
+        this.container = container;
+    }
+
+    public static boolean isInLimitations (Dimension extent, Dimension limitations) {
+        return limitations.width > extent.width && limitations.height > extent.height;
+    }
+
+    public static Dimension getEnclosingDimension (Dimension extent, Dimension limitations) {
+        return isInLimitations(extent, limitations) ? extent : limitations;
+    }
+
+    public String getToolTip() {
+        return toolTip;
+    }
+
+    public void setToolTip(String toolTip) {
+        this.toolTip = toolTip;
     }
 }

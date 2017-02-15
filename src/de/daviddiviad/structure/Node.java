@@ -106,7 +106,7 @@ public class Node<C, T> {
 
     @Override
     public String toString() {
-        return (getContent() != null ? getContent().toString() : "null");
+        return (getContent() != null ? "Node[" + getContent().toString() + "]": "Node[null]");
     }
 
     public String toTreeString() {

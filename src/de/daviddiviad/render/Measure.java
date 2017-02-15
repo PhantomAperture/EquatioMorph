@@ -25,22 +25,22 @@ public class Measure {
 
     private static final Font DEFAULT_FONT = new Font("Tohama", Font.PLAIN, 24);
 
-    private Dimension extent;
+    private Dimension limitations;
     private int measureSpec;
     private Font font;
 
-    public Measure(Dimension extent) {
-        this(extent, EXACTLY);
+    public Measure(Dimension limitations) {
+        this(limitations, EXACTLY);
     }
 
-    public Measure(Dimension extent, int measureSpec) {
-        this.extent = extent;
+    public Measure(Dimension limitations, int measureSpec) {
+        this.limitations = limitations;
         this.measureSpec = measureSpec;
         this.font = DEFAULT_FONT;
     }
 
-    public Dimension getExtent() {
-        return extent;
+    public Dimension getLimitations() {
+        return limitations;
     }
 
     public int getMeasureSpec() {
@@ -64,7 +64,7 @@ public class Measure {
         String representation = "Measure[";
         representation = representation.concat("measureSpec= " + (measureSpec == EXACTLY ? "exactly" : (measureSpec == AT_MOST ? "at_most" : "unspecified")) + ", ");
         representation = representation.concat("font= " + getFont().toString() + ", ");
-        representation = representation.concat("extent= " + getExtent().toString() + "]");
+        representation = representation.concat("limitations= " + getLimitations().toString() + "]");
         return representation;
     }
 
