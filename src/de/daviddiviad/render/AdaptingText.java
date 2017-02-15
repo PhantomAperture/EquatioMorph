@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class AdaptingText {
 
+    //TEST
     private Dimension boundingBox;
     private Font font;
     private final String content;
